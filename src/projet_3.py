@@ -19,6 +19,9 @@ def try_except(function,log=log):
 def temp():
     pass
 
+def temp2():
+    pass
+
 @try_except
 def divide(a,b):
     return (a/b)
