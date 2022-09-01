@@ -15,6 +15,10 @@ def try_except(function,log=log):
  
     return wrapper
 
+
+def temp():
+    pass
+
 @try_except
 def divide(a,b):
     return (a/b)
