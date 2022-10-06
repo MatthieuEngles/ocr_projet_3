@@ -24,7 +24,10 @@ def temp2():
 
 @try_except
 def divide(a,b):
-    return (a/b)
+    if b==0:
+        raise Exception('test')
+    else:
+        return (a/b)
 
 print(divide(10,0))
 
