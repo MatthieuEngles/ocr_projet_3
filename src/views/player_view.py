@@ -44,6 +44,7 @@ class PlayerView(MenuView):
         
         # est ce qu'on teste le parsing dans la vue ??? OUI !!!!!
         return family_name,first_name,birth_date,gender,rank
+    
 
     def show_player(self, player,full=False):
         if full:
