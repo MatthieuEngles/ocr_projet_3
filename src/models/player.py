@@ -1,15 +1,34 @@
-class Player:
-    
-    # mettre la liste des joueurs dans un attribut de classe et pas dans une  instance d'objet
-    
-    
-    def __init__(self, family_name,first_name,birth_date,gender,rank):
-        """Has a name and a hand."""
-        self.family_name = family_name
-        self.first_name = first_name
-        self.birth_date = birth_date
-        self.gender = gender
-        self.rank = rank
+from tinydb import TinyDB, Query,where
+from models.base import BaseItem
+class Player(BaseItem):
+
+    def __init__(self):
+        super().__init__('players')
+               
+    def serialize(self,family_name,first_name,birth_date,gender,rank):
+        return {'id':self.get_next_id(), 
+                'family_name': family_name,
+                'first_name': first_name,
+                'birth_date': birth_date,
+                'gender': gender,
+                'rank': rank}
         
-    def __str__(self):
-        return(self.first_name+" "+self.family_name)
+    def get_all_player(self):
+        return self.table.all()
+    
+    def add_to_base(self,player):
+        self.table.insert(player)
+        return player['id']
+    
+    def get_player_from_id(self, id):
+        player = Query()
+        player = self.table.search(player.id == id)
+        print(player)
+    
+    def update_rank_player(self,id,new_rank):
+        player = Query()
+        self.table.update({'rank': new_rank}, player['id'] == id)
+    
+    def delete_from_base(self,id):
+        self.table.remove(where('id')==id)
+        

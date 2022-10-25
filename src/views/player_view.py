@@ -1,7 +1,6 @@
 import os
 from datetime import datetime
 from views.menu_view import MenuView
-
 clear = lambda: os.system('clear')
 
 
@@ -10,48 +9,62 @@ class PlayerView(MenuView):
     def __init__(self):
         super().__init__()
                     
-    def prompt_player(self,num=None):
+    def prompt_player(self):
         clear()
-        if num:
-            print(f"Ajout du joueur #{num}")
-        else:
-            print("Ajout d'un nouveau joueur")
         print("Merci de renseigner les informations")
         family_name = input("Nom de famille: ").title()
         first_name = input("Prénom: ").upper()
-        birht_date=None
-        while birht_date==None:
+        birth_date=None
+        while birth_date is None:
             try:
-                birth_date = input("Date de naissance (jj/mm/AAAA): ")
-                birth_date = datetime.strptime(birth_date, "%d/%m/%Y")
+                birth_date = str(input("Date de naissance (jj/mm/AAAA): "))
+                # birth_date = datetime.strptime(birth_date, "%d/%m/%Y") ne convient pas à la base de données
             except Exception as e:
-                print('La date saisie est invalide veuillez la saisir à nouveau')
+                print('La date saisie est invalide veuillez la saisir à nouveau', e)
                 birth_date=None
-        gender = None
-        while gender==None:
-            gender = input("Genre: H/F: ").upper()
-            if gender not in ['H','F']:
-                gender = None
-                print('Le genre saisi est invalide veuillez spécifier "H" ou "F"')
-        rank = None 
-        while rank==None:
-            rank = input("Rank: ")
-            try:
-                rank = int(input("Rank: "))
-            except Exception as e:
-                print('La saisie est invalide, le rank doit être un entier')
-                rank=None
-        
-        # est ce qu'on teste le parsing dans la vue ??? OUI !!!!!
+        gender = self.prompt_for_str_in_list(input_text='Genre: H/F: ',test_list=['H','F'])
+        rank = self.prompt_for_int(input_text='Classement: ')
+
         return family_name,first_name,birth_date,gender,rank
     
-
-    def show_player(self, player,full=False):
-        if full:
-            birth_value  = 'né le' if gender == 'H' else 'née le'
-            print(f'{player.first_name} {player.family_name} {player.birth_value} {player.birth_date} a un score de {player.rank}')    
+    def prompt_update_player_rank(self,list_id):
+        clear()
+        update_id = self.prompt_for_int_in_list(input_text='De quel joueur souhaitez vous mettre à jour le classement?', test_list = list_id)
+        if update_id:
+            rank = self.prompt_for_int("Rank: ")
+            return update_id,rank
         else:
-            print(f'{player.first_name} {player.family_name} a un score de {player.rank}')
-        input("Pressez une touche pour continuer")    
+            return None,None
+    
+    def prompt_remove_player(self,list_id):
+        clear()
+        print('Quel joueur souhaitez vous retirer ?')
+        remove_id = self.prompt_for_int_in_list(input_text='Saisissez son identifiant (pour quitter taper "entrée" sans saisir de numéro): ', test_list = list_id)
+        return remove_id
+    
+    def confirm_remove_player(self,id):
+        input(f'Joueur n°{id} retiré, appuyez sur entrée')
         
+    def confirm_add_player(self,id):
+        input(f'Joueur n°{id} ajouté, appuyez sur entrée')
+        
+    def confirm_update_rank_player(self,id):
+        input(f'Classement du joueur n°{id} modifié, appuyez sur entrée')
+
+    def show_player(self,player,full=False):
+        print("Joueur n° : ",player['id'])
+        if full:
+            birth_value  = 'né le' if player['gender'] == 'H' else 'née le'
+            print(f"{player['first_name']} {player['family_name']} {birth_value} {player['birth_date']} a un score de {player['rank']}")    #{player['birth_date'].strftime('%d/%m/%Y')}
+        else:
+            print(f"{player['first_name']} {player['family_name']} a un score de {player['rank']}")
+        
+    def show_all_player(self, list_player,full=False):
+        clear()
+        print('---------')
+        for player in list_player:
+            self.show_player(player,full)
+            print('---------')
+        input('Appuyez sur entrée pour continuer')
+              
     

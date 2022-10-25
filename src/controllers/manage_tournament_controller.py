@@ -1,44 +1,59 @@
-
-from typing import List
 from models.player import Player
 from models.tournament import Tournament
-
+from models.turn import Turn
+from models.match import Match
 from views.tournament_view import TournamentView
- 
 from const import *
 
-class ManageTournament:
+from controllers.base_controller import BaseController
 
-    def __init__(self):
+class ManageTournament(BaseController):
+
+    def __init__(self,parent_controller):
         # models
-        self.tournament: List[Player] = []
+        self.tournament_model = Tournament()
+        self.player_model = Player()
         # views
-        self.view = TournamentView()
-        self.parent_controller = object()
-        self.menu_options={1:[None,'Créer un tournoi'],
-                        2:[None,'Charger un tournoi'],
-                        3:[None,'Voir un tournoi'],
-                        4:[None,'Supprimer un tournoi'],
-                        5:[None,'texte exemple'],
-                        6:[self.get_parent_controller(),'Revenir au menu principal'],
-                    }         
-   
-        self.menu_options_2=self.get_parent_controller()
-                    
-    def set_parent_controller(self, parent_controller):
-        self.parent_controller = parent_controller
+        menu_options={1:[self.add_tournament,'Créer un tournoi'],
+                        2:[self.play_tournament,'Jouer un tournoi'],
+                        3:[self.show_tournament,'Voir un tournoi'],
+                        4:[self.remove_tournament,'Supprimer un tournoi'],
+                        6:[parent_controller.run,'Revenir au menu principal'],
+                    }  
         
-    def get_parent_controller(self):
-        return self.parent_controller
-         
-    def get_players(self):
-        while len(self.players) < NB_MAX_JOUEUR:  # nombre magique
-            family_name,first_name,birth_date,gender,rank = self.view.prompt_for_player(len(self.players)+1)
-            player = Player(family_name,first_name,birth_date,gender,rank)
-            self.players.append(player)
+        super().__init__(menu_options,TournamentView())
 
-    def run(self,parent_controller):
-        self.set_parent_controller(parent_controller)
-        choix_menu = self.view.show_menu(self.menu_options)
-        next_step = self.menu_options[choix_menu][0] #choix_menu est un controller qui sera appelé ensuite
-        next_step.run(self)
+    # def create_turn(self,)
+    
+    
+    
+    def add_tournament(self):
+        nb_joueur_en_base = self.player_model.get_count()
+        if nb_joueur_en_base<8:
+            self.view.prompt_not_enough_player(nb_joueur_en_base)
+        else:
+            all_player = self.player_model.get_all_player()
+            tournament_info = self.view.prompt_tournament(all_player)
+            tournament = self.tournament_model.serialize(*tournament_info)
+            id = self.tournament_model.add_to_base(tournament)
+            self.view.confirm_add_tournament(id)   
+        self.run() #on retourne au menu
+    
+    # def generate_next_turn(self):
+    
+    # def play_random(self,turn)
+    
+        
+    def play_tournament(self):
+        list_ids = self.tournament_model.get_list_id()
+        tournament_id = self.view.select_tournament(list_ids)
+        if tournament_id:
+            tournament = self.tournament_model.get_tournament_from_id(tournament_id)
+            list_players_id = tournament['list_players_id']
+        self.run()
+        
+    def show_tournament(self):
+        self.run()
+        
+    def remove_tournament(self):
+        self.run()

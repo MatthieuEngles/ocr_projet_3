@@ -1,16 +1,16 @@
 from views.quit_view import QuitView
 
+from controllers.base_controller import BaseController
 
-class QuitController:
+class QuitController():
 
     
     def __init__(self):
-        self.text = 'Quitter'
         self.view = QuitView()
         
-    def run(self,parent_controller):
+    def run(self):
         self.view.show_quit()
-  
+        return True
         
         
 
