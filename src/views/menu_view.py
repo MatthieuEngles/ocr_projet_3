@@ -1,16 +1,13 @@
-import os
 import time
-clear = lambda: os.system('clear')
 
 
 class MenuView:
-       
-      
+
     def prompt_annulation(self):
         print('Commande annulée')
         time.sleep(0.5)
-        
-    def prompt_for_int(self,input_text='Saisissez un nombre entier',error_text = 'La saisie est invalide, vous devez saisir un entier',with_none_quit=True):
+
+    def prompt_for_int(self, input_text='Saisissez un nombre entier', error_text = 'La saisie est invalide, vous devez saisir un entier',with_none_quit=True):
         data = None
         while data is None:
             try:
