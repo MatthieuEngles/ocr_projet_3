@@ -30,7 +30,7 @@ class TournamentView(MenuView):
                 print(f"     {player['id']}: {player['family_name']} {player['first_name']} classé(e) {player['rank']}")
             choix = self.prompt_for_int_in_list(input_text='Votre choix : ', test_list=list_all_player_id)
             list_player_id.append(choix)
-            all_player = [player for player in all_player if player['id']!=choix]
+            all_player = [player for player in all_player if player['id'] != choix]
             print(f'Joueur n°{choix} ajouté au tournoi, il manque encore {8-len(list_player_id)} joueurs')
             print()
 

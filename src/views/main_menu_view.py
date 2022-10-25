@@ -5,7 +5,7 @@ import os
 class MainMenuView(MenuView):
 
     def __init__(self):
-        super().__init__()    
+        super().__init__()
 
     def clear():
         os.system('clear')
