@@ -28,7 +28,7 @@ class ManagePlayer(BaseController):
         self.run()  # on retourne au menu
 
     def show_all_palyer(self):
-        list_players = self.player_model.get_all_player()
+        list_players = self.player_model.get_all()
         self.view.show_all_player(list_players, full=True)
         self.run()  # on retourne au menu
 
@@ -43,11 +43,12 @@ class ManagePlayer(BaseController):
         self.run()  # on retourne au menu
 
     def remove_player(self):
-        list_ids = self.player_model.get_list_id()
-        id = self.view.prompt_remove_player(list_ids)
-        if id is not None:
-            self.player_model.delete_from_base(id)
-            self.view.confirm_remove_player(id)
-        else:
-            self.view.prompt_annulation()
+        self.view.prompt_not_implemented()
+        # list_ids = self.player_model.get_list_id()
+        # id = self.view.prompt_remove_player(list_ids)
+        # if id is not None:
+        #     self.player_model.delete_from_base(id)
+        #     self.view.confirm_remove_player(id)
+        # else:
+        #     self.view.prompt_annulation()
         self.run()  # on retourne au menu

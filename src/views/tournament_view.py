@@ -1,4 +1,5 @@
 from views.menu_view import MenuView
+from views.match_view import MatchView
 
 
 class TournamentView(MenuView):
@@ -45,18 +46,28 @@ class TournamentView(MenuView):
     def prompt_select_tournament(self, list_id):
         self.clear()
         print('Quel tournoi voulez vous jouer ?')
-        remove_id = self.prompt_for_int_in_list(
+        id = self.prompt_for_int_in_list(
             input_text='Saisissez son identifiant (pour quitter taper "entrée" sans saisir de numéro):',
             test_list=list_id)
-        return remove_id
+        return id
 
     def prompt_not_enough_player(self, player_count):
         print('Il faut au moins 8 joueur dans la base pour créer un tournoi')
         print(f'Actuellement il y a {player_count} joueur(s)')
         input('appuyez sur entrée pour continuer')
 
+    def prompt_tournament_complete(self, id):
+        input(f'Le tournoi n°{id} est terminé, appuyez sur entrée')
+
     def confirm_add_tournament(self, id):
         input(f'Tournoi n°{id} créé, appuyez sur entrée')
 
-    def show_tournament(self):
+    def show_tournament(self, id, list_match):
+        print(f'Tournoi n°{id}')
+        if len(list_match) == 0:
+            input('Le tournoi n\'a pas débuté, appuyez sur entrée')
+        else:
+            for m in list_match:
+                MatchView().show_match(m)
+        input('appuyez sur entrée pour continuer...')
         self.clear()

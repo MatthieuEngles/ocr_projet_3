@@ -1,7 +1,0 @@
-@startuml
-title This is a Title
-rectangle {
-    () " " as u1
-    component foo
-}
-@enduml

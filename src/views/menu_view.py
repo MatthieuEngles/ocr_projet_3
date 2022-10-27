@@ -1,7 +1,11 @@
 import time
+import os
 
 
 class MenuView:
+
+    def clear(self):
+        os.system('clear')
 
     def prompt_annulation(self):
         print('Commande annulée')
@@ -71,3 +75,6 @@ class MenuView:
                                             prompt_list=False,
                                             with_none_quit=False)
         return choix
+
+    def prompt_not_implemented(self):
+        input('Commande non implémentée, appuyez sur entrée')

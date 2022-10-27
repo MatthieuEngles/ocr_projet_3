@@ -1,4 +1,4 @@
-from tinydb import TinyDB
+from tinydb import TinyDB, Query, where
 
 
 class BaseItem:
@@ -25,3 +25,26 @@ class BaseItem:
 
     def get_count(self):
         return len(self.get_list_id())
+
+    def get_from_id(self, id):
+        if isinstance(id, int):
+            query = Query()
+            item = self.table.search(query.id == id)
+            if len(item) > 0:
+                return item[0]
+            else:
+                return None
+        if isinstance(id, list):
+            query = Query()
+            items = self.table.search(query.id.one_of(id))
+            return items
+
+    def delete_from_base(self, id):
+        self.table.remove(where('id') == id)
+
+    def add_to_base(self, item):
+        self.table.insert(item)
+        return item['id']
+
+    def get_all(self):
+        return self.table.all()

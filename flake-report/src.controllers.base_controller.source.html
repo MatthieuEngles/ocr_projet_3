@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>src/controllers/base_controller.py - flake8 annotated source</title>
+      <meta http-equiv="Content-Type" value="text/html; charset=UTF-8">
+      <link rel="stylesheet" href="styles.css">
+   </head>
+   <body>
+      <div id="masthead" class="sev-3"></div>
+      <div id="page">
+         <h1>
+            <a href="src.controllers.base_controller.report.html">
+               <img src="back.svg" alt="&#x2B05;">
+               src/controllers/base_controller.py source
+            </a>
+         </h1>
+
+         <div id="doc">
+            <div id="l1"
+               class="code sev-3  le">
+               <ul class="violations">
+               
+                  <li>
+                     <span class="count sev-3">
+                        D100
+                     </span>
+                     Missing docstring in public module</li>
+               
+                  <li>
+                     <span class="count sev-3">
+                        D101
+                     </span>
+                     Missing docstring in public class</li>
+               
+               </ul><tt><i>1</i> <span class="k">class</span> <span class="nc">BaseController</span><span class="p">:</span></tt>
+            </div>
+            <div id="l2"
+               class="code sev- "><tt><i>2</i> &nbsp;</tt>
+            </div>
+            <div id="l3"
+               class="code sev-3  le">
+               <ul class="violations">
+               
+                  <li>
+                     <span class="count sev-3">
+                        D107
+                     </span>
+                     Missing docstring in __init__</li>
+               
+               </ul><tt><i>3</i>     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">menu_options</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">view</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span></tt>
+            </div>
+            <div id="l4"
+               class="code sev- "><tt><i>4</i>         <span class="bp">self</span><span class="o">.</span><span class="n">menu_options</span> <span class="o">=</span> <span class="n">menu_options</span></tt>
+            </div>
+            <div id="l5"
+               class="code sev- "><tt><i>5</i>         <span class="bp">self</span><span class="o">.</span><span class="n">view</span> <span class="o">=</span> <span class="n">view</span></tt>
+            </div>
+            <div id="l6"
+               class="code sev- "><tt><i>6</i> &nbsp;</tt>
+            </div>
+            <div id="l7"
+               class="code sev-3  le">
+               <ul class="violations">
+               
+                  <li>
+                     <span class="count sev-3">
+                        D102
+                     </span>
+                     Missing docstring in public method</li>
+               
+               </ul><tt><i>7</i>     <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span></tt>
+            </div>
+            <div id="l8"
+               class="code sev- "><tt><i>8</i>         <span class="n">choix_menu</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">show_menu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">menu_options</span><span class="p">)</span>  <span class="c1"># la vue doit avoir une méthode show_menu</span></tt>
+            </div>
+            <div id="l9"
+               class="code sev- "><tt><i>9</i>         <span class="c1"># choix_menu.run est la méthode de d&#39;appel d&#39;un controller qui sera appelé ensuite</span></tt>
+            </div>
+            <div id="l10"
+               class="code sev- "><tt><i>10</i>         <span class="n">next_step</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">menu_options</span><span class="p">[</span><span class="n">choix_menu</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span></tt>
+            </div>
+            <div id="l11"
+               class="code sev- "><tt><i>11</i>         <span class="n">next_step</span><span class="p">()</span></tt>
+            </div>
+            
+         </div>
+      </div>
+   </body>
+</html>
