@@ -110,7 +110,7 @@ class ManageTournament(BaseController):
         list_ids = self.tournament_model.get_list_id()
         tournament_id = self.view.prompt_select_tournament(list_ids)
         tournament = self.tournament_model.get_from_id(tournament_id)
-        if tournament['nb_turn_completed'] == 4:
+        if tournament['nb_turn_completed'] >= 4:
             self.view.prompt_tournament_complete(tournament_id)
         else:
             list_player = self.load_and_sort_player(tournament)

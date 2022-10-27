@@ -29,9 +29,4 @@ class Tournament(BaseItem):
         else:
             return None
 
-    def get_sorted_player(self, id):
-        tournament = self.get_from_id(id)
-        if tournament:
-            return tournament['nb_turn_completed']
-        else:
-            return None
+
